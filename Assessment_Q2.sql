@@ -9,10 +9,11 @@ WITH avg_transactions_per_month_per_owner AS (
         -- Aggregating monthly transaction counts for each owner
         SELECT 
             owner_id,
+            YEAR(transaction_date) AS transaction_year,
             MONTH(transaction_date) AS transaction_month,
             COUNT(*) AS num_transactions_per_month
         FROM adashi_staging.savings_savingsaccount
-        GROUP BY owner_id, transaction_month
+        GROUP BY owner_id, transaction_year, transaction_month
     ) AS num_transactions_per_month
     GROUP BY owner_id
 ),
